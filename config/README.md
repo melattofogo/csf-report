@@ -31,3 +31,7 @@ pip install python-dotenv
 ```
 pip install requests
 ```
+
+```
+pip install notion-client
+```
