@@ -27,3 +27,7 @@ git config --local --list
 ```
 pip install python-dotenv
 ```
+
+```
+pip install requests
+```
