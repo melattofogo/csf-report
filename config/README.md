@@ -23,3 +23,7 @@ git config alias.l "log --oneline"
 git config alias.s "status"
 git config --local --list
 ```
+
+```
+pip install python-dotenv
+```
