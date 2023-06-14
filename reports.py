@@ -108,10 +108,10 @@ def report_fralda(client, notion_db_id, filter_fortnight):
     result = f"Fraldas - {filter_fortnight}"
         
     for entry in filter_simple_rows:
-        if any(fam['Fralda'] is not None for fam in entry['Família']):
+        if any(fam['Fralda'] != 'N/A' and fam['Fralda'] is not None for fam in entry['Família']):
             result += f"\n\n*{entry['Dupla']}*"
             for fam in entry['Família']:
-                if fam['Fralda'] is not None:
+                if fam['Fralda'] != 'N/A' and fam['Fralda'] is not None:
                     result += f"\n{fam['nome']} ({fam['Fralda']})"
 
     return result
