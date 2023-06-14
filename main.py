@@ -1,6 +1,8 @@
 # main.py
 from dotenv import dotenv_values
 import requests
+from notion_client import Client
+import httpx
 
 env_vars = dotenv_values(".env")
 
