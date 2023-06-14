@@ -6,6 +6,9 @@ env_vars = dotenv_values(".env")
 
 telegram_bot_token = env_vars["TELEGRAM_BOT_TOKEN"]
 telegram_chat_id = env_vars["TELEGRAM_CHAT_ID"]
+notion_token = env_vars["NOTION_API_TOKEN"]
+notion_page_id = env_vars["NOTION_PAGE_ID"]
+notion_db_id = env_vars["NOTION_DB_ID"]
 
 def main():
     send_telegram_message('message')
