@@ -2,12 +2,23 @@ from utils import *
 
 def report_cesta(client, notion_db_id, filter_fortnight):
     """
-    filter_fortnight: {'Dia 5', 'Dia 20'}
+    Generates a report of cestas based on the given filter fortnight.
+
+    Args:
+        client: Notion client object for querying the database.
+        notion_db_id (str): ID of the Notion database.
+        filter_fortnight (str): Filter fortnight ('Dia 5' or 'Dia 20').
+
+    Returns:
+        str: Generated report string.
     """
+    # Query the Notion database to get all rows
     db_rows = client.databases.query(notion_db_id)
 
+    # Initialize a list to store the simplified rows
     simple_rows = []
 
+    # Iterate over each row in the database
     for row in db_rows['results']:
         Família = safe_get(row, 'properties.Família.title.0.plain_text')
         Dupla = safe_get(row, 'properties.Dupla.select.name')
@@ -15,6 +26,7 @@ def report_cesta(client, notion_db_id, filter_fortnight):
         Quinzena = safe_get(row, 'properties.Quinzena.select.name')
         Cesta = safe_get(row, 'properties.Cesta.select.name')
 
+        # Create a simplified row dictionary with relevant information
         simple_rows.append({
             'Família': Família,
             'Dupla': Dupla,
@@ -23,16 +35,19 @@ def report_cesta(client, notion_db_id, filter_fortnight):
             'Cesta': Cesta
         })
 
+    # Initialize a list to store the filtered and simplified rows
     filter_simple_rows = []
 
     current_dupla = None
     for d in simple_rows:
+        # Filter rows based on the given filter fortnight
         if d['Quinzena'] == filter_fortnight:
             if d['Dupla'] != current_dupla:
                 current_dupla = d['Dupla']
                 filter_simple_rows.append({"Dupla": current_dupla, "Família": []})
             filter_simple_rows[-1]['Família'].append({"nome": d['Família'], "Status": d['Status'], "Cesta": d['Cesta']})
 
+    # Generate the report string
     result = f"Cestas - {filter_fortnight}\n\n"
     for entry in filter_simple_rows:
         result += '*' + entry['Dupla'] + '*' + "\n"
@@ -44,12 +59,23 @@ def report_cesta(client, notion_db_id, filter_fortnight):
 
 def report_fralda(client, notion_db_id, filter_fortnight):
     """
-    filter_fortnight: {'Dia 5', 'Dia 20'}
+    Generates a report of fraldas based on the given filter fortnight.
+
+    Args:
+        client: Notion client object for querying the database.
+        notion_db_id (str): ID of the Notion database.
+        filter_fortnight (str): Filter fortnight ('Dia 5' or 'Dia 20').
+
+    Returns:
+        str: Generated report string.
     """
+    # Query the Notion database to get all rows
     db_rows = client.databases.query(notion_db_id)
 
+    # Initialize a list to store the simplified rows
     simple_rows = []
 
+    # Iterate over each row in the database
     for row in db_rows['results']:
         Família = safe_get(row, 'properties.Família.title.0.plain_text')
         Dupla = safe_get(row, 'properties.Dupla.select.name')
@@ -57,6 +83,7 @@ def report_fralda(client, notion_db_id, filter_fortnight):
         Quinzena = safe_get(row, 'properties.Quinzena.select.name')
         Fralda = safe_get(row, 'properties.Fralda.select.name')
 
+        # Create a simplified row dictionary with relevant information
         simple_rows.append({
             'Família': Família,
             'Dupla': Dupla,
@@ -65,16 +92,19 @@ def report_fralda(client, notion_db_id, filter_fortnight):
             'Fralda': Fralda
         })
 
+    # Initialize a list to store the filtered and simplified rows
     filter_simple_rows = []
 
     current_dupla = None
     for d in simple_rows:
+        # Filter rows based on the given filter fortnight
         if d['Quinzena'] == filter_fortnight:
             if d['Dupla'] != current_dupla:
                 current_dupla = d['Dupla']
                 filter_simple_rows.append({"Dupla": current_dupla, "Família": []})
             filter_simple_rows[-1]['Família'].append({"nome": d['Família'], "Status": d['Status'], "Fralda": d['Fralda']})
 
+    # Generate the report string
     result = f"Fraldas - {filter_fortnight}"
         
     for entry in filter_simple_rows:
@@ -88,12 +118,23 @@ def report_fralda(client, notion_db_id, filter_fortnight):
 
 def report_pedencia(client, notion_db_id, filter_fortnight):
     """
-    filter_fortnight: {'Dia 5', 'Dia 20'}
+    Generates a report of pendências based on the given filter fortnight.
+
+    Args:
+        client: Notion client object for querying the database.
+        notion_db_id (str): ID of the Notion database.
+        filter_fortnight (str): Filter fortnight ('Dia 5' or 'Dia 20').
+
+    Returns:
+        str: Generated report string.
     """
+    # Query the Notion database to get all rows
     db_rows = client.databases.query(notion_db_id)
 
+    # Initialize a list to store the simplified rows
     simple_rows = []
 
+    # Iterate over each row in the database
     for row in db_rows['results']:
         Família = safe_get(row, 'properties.Família.title.0.plain_text')
         Dupla = safe_get(row, 'properties.Dupla.select.name')
@@ -102,6 +143,7 @@ def report_pedencia(client, notion_db_id, filter_fortnight):
         Cesta = safe_get(row, 'properties.Cesta.select.name')
         Fralda = safe_get(row, 'properties.Fralda.select.name')
 
+        # Create a simplified row dictionary with relevant information
         simple_rows.append({
             'Família': Família,
             'Dupla': Dupla,
@@ -111,16 +153,19 @@ def report_pedencia(client, notion_db_id, filter_fortnight):
             'Fralda': Fralda
         })
 
+    # Initialize a list to store the filtered and simplified rows
     filter_simple_rows = []
 
     current_dupla = None
     for d in simple_rows:
+        # Filter rows based on the given filter fortnight
         if d['Quinzena'] == filter_fortnight or d['Quinzena'] is None:
             if d['Dupla'] != current_dupla:
                 current_dupla = d['Dupla']
                 filter_simple_rows.append({"Dupla": current_dupla, "Família": []})
             filter_simple_rows[-1]['Família'].append({"nome": d['Família'], "Status": d['Status'], "Quinzena": d['Quinzena'], "Cesta": d['Cesta'], "Fralda": d['Fralda']})
 
+    # Generate the report string
     result = f"Pendências - {filter_fortnight}"
 
     for entry in filter_simple_rows:
