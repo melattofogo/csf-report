@@ -27,10 +27,16 @@ def main():
     # result = report_cesta(notion, notion_db_id, 'Dia 20')
     # send_telegram_message(result)
 
-    result = report_fralda(notion, notion_db_id, 'Dia 5')
+    # result = report_fralda(notion, notion_db_id, 'Dia 5')
+    # send_telegram_message(result)
+
+    # result = report_fralda(notion, notion_db_id, 'Dia 20')
+    # send_telegram_message(result)
+
+    result = report_pedencia(notion, notion_db_id, 'Dia 5')
     send_telegram_message(result)
 
-    result = report_fralda(notion, notion_db_id, 'Dia 20')
+    result = report_pedencia(notion, notion_db_id, 'Dia 20')
     send_telegram_message(result)
 
 def send_telegram_message(message, token=telegram_bot_token, chat_id=telegram_chat_id):
